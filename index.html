@@ -20,15 +20,11 @@
 
 <h2>BG CONTROL</h2>
 
-<div class="menu">
 <p>🏠 Dashboard</p>
 <p>📦 Inventario</p>
 <p>🛒 Compras</p>
 <p>🥖 Producción</p>
-<p>👥 Proveedores</p>
 <p>📊 Reportes</p>
-<p>⚙️ Configuración</p>
-</div>
 
 </div>
 
@@ -39,7 +35,9 @@
 
 <h1>Dashboard</h1>
 
-<p>Control inteligente de inventario y producción</p>
+<button onclick="abrirFormularioProducto()">
+➕ Nuevo Producto
+</button>
 
 
 
@@ -82,7 +80,6 @@
 <h2>Inventario Actual</h2>
 
 
-
 <table>
 
 
@@ -100,7 +97,6 @@
 
 <th>Estado</th>
 
-
 </tr>
 
 </thead>
@@ -114,11 +110,84 @@
 </table>
 
 
+
 </div>
 
 
 
+
+
+<!-- FORMULARIO -->
+
+<div id="modalProducto" class="modal">
+
+
+<div class="formulario">
+
+
+<h2>Nuevo Producto</h2>
+
+
+<input id="codigo" placeholder="Código">
+
+
+<input id="nombre" placeholder="Nombre">
+
+
+<select id="tipo">
+
+<option>MATERIA PRIMA</option>
+
+<option>PRODUCTO TERMINADO</option>
+
+</select>
+
+
+<input id="categoria" placeholder="Categoría">
+
+
+<input id="unidad" placeholder="Unidad">
+
+
+<input id="stock" type="number" placeholder="Stock inicial">
+
+
+<input id="minimo" type="number" placeholder="Stock mínimo">
+
+
+<input id="costo" type="number" placeholder="Costo unitario">
+
+
+<input id="precio" type="number" placeholder="Precio venta">
+
+
+<button onclick="guardarProducto()">
+
+Guardar
+
+</button>
+
+
+<button onclick="cerrarFormularioProducto()">
+
+Cancelar
+
+</button>
+
+
+
+</div>
+
+
+</div>
+
+
+
+
+
 <script src="modules/inventario.js"></script>
+
+<script src="modules/productos.js"></script>
 
 <script src="app.js"></script>
 
