@@ -16,35 +16,47 @@
 <body>
 
 
-<div class="app">
+<div class="sidebar">
+
+<h2>BG CONTROL</h2>
+
+<p>📦 Inventario</p>
+<p>🛒 Compras</p>
+<p>🥖 Producción</p>
+<p>📊 Reportes</p>
+<p>⚙️ Configuración</p>
+
+</div>
 
 
-<header>
 
-<h1>BG CONTROL</h1>
-<p>Inventario inteligente</p>
-
-</header>
+<div class="main">
 
 
+<h1>Dashboard</h1>
 
-<section class="dashboard">
+
+<div class="cards">
 
 
 <div class="card">
 
 <h3>📦 Productos</h3>
 
-<span id="totalProductos">0</span>
+<strong id="totalProductos">
+0
+</strong>
 
 </div>
 
 
-<div class="card alerta">
+<div class="card warning">
 
 <h3>⚠️ Stock Bajo</h3>
 
-<span id="totalAlertas">0</span>
+<strong id="totalAlertas">
+0
+</strong>
 
 </div>
 
@@ -53,12 +65,14 @@
 
 <h3>💰 Inventario</h3>
 
-<span id="valorInventario">$0</span>
+<strong id="valorInventario">
+$0
+</strong>
 
 </div>
 
 
-</section>
+</div>
 
 
 
@@ -73,11 +87,8 @@
 <tr>
 
 <th>Producto</th>
-
 <th>Categoría</th>
-
 <th>Stock</th>
-
 <th>Mínimo</th>
 
 </tr>
@@ -93,9 +104,7 @@
 </table>
 
 
-
 </div>
-
 
 
 <script src="app.js"></script>
