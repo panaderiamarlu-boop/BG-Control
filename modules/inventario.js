@@ -4,12 +4,14 @@ function cargarInventario(productos){
 let tabla = "";
 
 
+
 productos.forEach(producto=>{
 
 
 let stock = Number(producto["STOCK ACTUAL"]);
 
 let minimo = Number(producto["STOCK MINIMO"]);
+
 
 
 let estado = "";
@@ -50,12 +52,14 @@ tabla += `
 
 <td>${estado}</td>
 
+
 </tr>
 
 `;
 
 
 });
+
 
 
 document.getElementById("productos").innerHTML = tabla;
