@@ -1,58 +1,290 @@
-body{
+/* =====================================
+   BG CONTROL
+   Apple Design System v1
+===================================== */
 
-margin:0;
-font-family:Arial;
-background:#f4f6f8;
-display:flex;
+
+/* VARIABLES DE DISEÑO */
+
+:root {
+
+    --bg-main:#F5F5F7;
+
+    --bg-card:#FFFFFF;
+
+    --text-primary:#1D1D1F;
+
+    --text-secondary:#6E6E73;
+
+    --blue:#0071E3;
+
+    --green:#34C759;
+
+    --orange:#FF9500;
+
+    --red:#FF3B30;
+
+    --border:rgba(0,0,0,.08);
+
+    --shadow:
+    0 10px 30px rgba(0,0,0,.08);
+
+    --radius:20px;
 
 }
+
+
+
+/* RESET */
+
+*{
+
+box-sizing:border-box;
+
+}
+
+
+
+body{
+
+
+margin:0;
+
+font-family:
+-apple-system,
+BlinkMacSystemFont,
+"SF Pro Display",
+"SF Pro Text",
+Arial,
+sans-serif;
+
+
+background:var(--bg-main);
+
+color:var(--text-primary);
+
+
+display:flex;
+
+
+}
+
+
+/* ===========================
+ SIDEBAR APPLE
+=========================== */
 
 
 .sidebar{
 
-width:230px;
+
+width:250px;
+
 height:100vh;
-background:#20232a;
-color:white;
-padding:20px;
+
+
+background:
+
+rgba(255,255,255,.75);
+
+
+backdrop-filter:
+blur(20px);
+
+
+border-right:
+1px solid var(--border);
+
+
+padding:30px 20px;
+
+
+position:fixed;
+
 
 }
+
+
+
+.sidebar h2{
+
+
+font-size:24px;
+
+font-weight:700;
+
+letter-spacing:-.5px;
+
+margin-bottom:40px;
+
+
+}
+
 
 
 .sidebar p{
 
-padding:12px;
+
+padding:12px 15px;
+
+
+border-radius:12px;
+
+
+color:var(--text-secondary);
+
+
+cursor:pointer;
+
+
+transition:.3s;
+
 
 }
+
+
+
+.sidebar p:hover{
+
+
+background:#E8E8ED;
+
+color:var(--text-primary);
+
+
+}
+
+
+
+/* ===========================
+ CONTENIDO
+=========================== */
 
 
 .main{
 
-flex:1;
-padding:30px;
+
+margin-left:250px;
+
+padding:40px;
+
+
+width:100%;
+
 
 }
 
+
+
+h1{
+
+
+font-size:40px;
+
+letter-spacing:-1px;
+
+
+margin-bottom:5px;
+
+
+}
+
+
+h2{
+
+
+font-size:28px;
+
+letter-spacing:-.5px;
+
+
+}
+
+
+
+.main>p{
+
+
+color:var(--text-secondary);
+
+
+}
+
+
+/* ===========================
+ BOTONES
+=========================== */
 
 
 button{
 
-background:#2563eb;
+
+background:var(--blue);
+
+
 color:white;
+
+
 border:none;
-padding:12px 20px;
-border-radius:8px;
+
+
+padding:12px 22px;
+
+
+border-radius:14px;
+
+
+font-size:15px;
+
+
+font-weight:600;
+
+
 cursor:pointer;
+
+
+transition:.25s;
+
 
 }
 
 
 
+button:hover{
+
+
+transform:translateY(-2px);
+
+
+box-shadow:
+
+0 10px 20px rgba(0,113,227,.25);
+
+
+}
+
+
+
+/* ===========================
+ TARJETAS DASHBOARD
+=========================== */
+
+
 .cards{
 
-display:flex;
-gap:20px;
-margin:25px 0;
+
+display:grid;
+
+
+grid-template-columns:
+repeat(3,1fr);
+
+
+gap:25px;
+
+
+margin:35px 0;
+
 
 }
 
@@ -60,11 +292,51 @@ margin:25px 0;
 
 .card{
 
-background:white;
-padding:25px;
-border-radius:15px;
-flex:1;
-box-shadow:0 5px 15px #ddd;
+
+background:var(--bg-card);
+
+
+border-radius:var(--radius);
+
+
+padding:30px;
+
+
+box-shadow:var(--shadow);
+
+
+border:
+1px solid var(--border);
+
+
+transition:.3s;
+
+
+}
+
+
+
+.card:hover{
+
+
+transform:translateY(-5px);
+
+
+}
+
+
+
+.card h3{
+
+
+color:var(--text-secondary);
+
+
+font-size:16px;
+
+
+font-weight:500;
+
 
 }
 
@@ -72,7 +344,18 @@ box-shadow:0 5px 15px #ddd;
 
 .card strong{
 
-font-size:35px;
+
+display:block;
+
+
+font-size:42px;
+
+
+margin-top:15px;
+
+
+letter-spacing:-1px;
+
 
 }
 
@@ -80,17 +363,50 @@ font-size:35px;
 
 .warning{
 
-border-top:5px solid red;
+
+border-left:
+5px solid var(--red);
+
 
 }
 
 
 
+/* ===========================
+ TABLA INVENTARIO
+=========================== */
+
+
 table{
 
+
 width:100%;
+
+
 background:white;
+
+
+border-radius:20px;
+
+
+overflow:hidden;
+
+
 border-collapse:collapse;
+
+
+box-shadow:var(--shadow);
+
+
+}
+
+
+
+thead{
+
+
+background:#F5F5F7;
+
 
 }
 
@@ -98,8 +414,15 @@ border-collapse:collapse;
 
 th{
 
-background:#111827;
-color:white;
+
+font-size:14px;
+
+
+color:var(--text-secondary);
+
+
+font-weight:600;
+
 
 }
 
@@ -107,27 +430,62 @@ color:white;
 
 td,th{
 
-padding:15px;
+
+padding:18px;
+
+
 text-align:center;
+
+
+border-bottom:
+1px solid var(--border);
+
 
 }
 
 
 
-/* MODAL */
+tr:hover{
+
+
+background:#FAFAFA;
+
+
+}
+
+
+
+/* ===========================
+ MODAL PRODUCTOS
+=========================== */
 
 
 .modal{
 
+
 display:none;
+
+
 position:fixed;
-top:0;
-left:0;
-width:100%;
-height:100%;
-background:rgba(0,0,0,.5);
+
+
+inset:0;
+
+
+background:
+
+rgba(0,0,0,.35);
+
+
+backdrop-filter:
+blur(10px);
+
+
 justify-content:center;
+
+
 align-items:center;
+
 
 }
 
@@ -135,10 +493,34 @@ align-items:center;
 
 .formulario{
 
+
 background:white;
-width:350px;
-padding:30px;
-border-radius:15px;
+
+
+width:420px;
+
+
+padding:35px;
+
+
+border-radius:25px;
+
+
+box-shadow:
+
+
+0 30px 80px rgba(0,0,0,.2);
+
+
+}
+
+
+
+.formulario h2{
+
+
+margin-top:0;
+
 
 }
 
@@ -147,17 +529,77 @@ border-radius:15px;
 .formulario input,
 .formulario select{
 
+
 width:100%;
-padding:10px;
+
+
+padding:14px;
+
+
 margin:8px 0;
+
+
+border-radius:12px;
+
+
+border:
+
+1px solid var(--border);
+
+
+font-size:15px;
+
+
+outline:none;
+
 
 }
 
 
 
-.formulario button{
+.formulario input:focus{
 
-width:100%;
-margin-top:10px;
+
+border-color:var(--blue);
+
+
+}
+
+
+
+/* ===========================
+ RESPONSIVE
+=========================== */
+
+
+@media(max-width:900px){
+
+
+.sidebar{
+
+display:none;
+
+}
+
+
+.main{
+
+
+margin-left:0;
+
+padding:20px;
+
+
+}
+
+
+.cards{
+
+
+grid-template-columns:1fr;
+
+
+}
+
 
 }
