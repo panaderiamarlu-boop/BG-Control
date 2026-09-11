@@ -1,11 +1,11 @@
 /* =========================================
    BG CONTROL
-   APPLE DESIGN SYSTEM v2
+   APPLE DESIGN SYSTEM v3
+   INVENTARIO + MOVIMIENTOS
 ========================================= */
 
 
 :root{
-
 
 --bg:#F5F5F7;
 
@@ -30,10 +30,7 @@
 
 --radius:22px;
 
-
 }
-
-
 
 
 
@@ -72,6 +69,7 @@ sans-serif;
 
 background:var(--bg);
 
+
 color:var(--text);
 
 
@@ -84,9 +82,11 @@ display:flex;
 
 
 
-/* =========================
+
+
+/* ==========================
 SIDEBAR
-========================= */
+========================== */
 
 
 .sidebar{
@@ -112,11 +112,9 @@ background:
 rgba(255,255,255,.75);
 
 
-
 backdrop-filter:
 
 blur(20px);
-
 
 
 border-right:
@@ -124,9 +122,7 @@ border-right:
 1px solid var(--border);
 
 
-
 padding:30px 20px;
-
 
 
 }
@@ -142,7 +138,7 @@ font-size:26px;
 letter-spacing:-1px;
 
 
-margin-bottom:45px;
+margin-bottom:40px;
 
 
 }
@@ -190,10 +186,10 @@ color:var(--text);
 background:#E8E8ED;
 
 
-color:var(--text);
-
-
 font-weight:600;
+
+
+color:var(--text);
 
 
 }
@@ -204,9 +200,10 @@ font-weight:600;
 
 
 
-/* =========================
+
+/* ==========================
 MAIN
-========================= */
+========================== */
 
 
 .main{
@@ -227,9 +224,12 @@ width:100%;
 
 
 
-/* =========================
-TOP BAR
-========================= */
+
+
+
+/* ==========================
+TOPBAR
+========================== */
 
 
 .topbar{
@@ -343,9 +343,11 @@ border-radius:50%;
 
 
 
-/* =========================
+
+
+/* ==========================
 TEXTOS
-========================= */
+========================== */
 
 
 h1{
@@ -355,9 +357,6 @@ font-size:42px;
 
 
 letter-spacing:-1.5px;
-
-
-margin-bottom:5px;
 
 
 }
@@ -379,9 +378,28 @@ font-size:18px;
 
 
 
-/* =========================
-BUTTON
-========================= */
+
+
+
+/* ==========================
+BOTONES
+========================== */
+
+
+.actions{
+
+
+display:flex;
+
+
+gap:15px;
+
+
+margin:25px 0;
+
+
+}
+
 
 
 button{
@@ -402,10 +420,10 @@ padding:14px 24px;
 border-radius:16px;
 
 
-font-weight:600;
-
-
 font-size:15px;
+
+
+font-weight:600;
 
 
 cursor:pointer;
@@ -437,9 +455,10 @@ box-shadow:
 
 
 
-/* =========================
+
+/* ==========================
 CARDS
-========================= */
+========================== */
 
 
 .cards{
@@ -453,7 +472,6 @@ grid-template-columns:
 repeat(3,1fr);
 
 
-
 gap:25px;
 
 
@@ -461,8 +479,6 @@ margin:35px 0;
 
 
 }
-
-
 
 
 
@@ -503,8 +519,6 @@ transform:translateY(-5px);
 
 
 }
-
-
 
 
 
@@ -566,7 +580,6 @@ background:#E9F9EE;
 
 
 
-
 .card h3{
 
 
@@ -586,13 +599,10 @@ font-weight:500;
 .card strong{
 
 
-font-size:42px;
-
-
-letter-spacing:-1px;
-
-
 display:block;
+
+
+font-size:42px;
 
 
 margin:15px 0;
@@ -608,17 +618,17 @@ margin:15px 0;
 color:var(--secondary);
 
 
-margin:0;
-
-
 }
 
 
 
 
-/* =========================
-TABLA
-========================= */
+
+
+
+/* ==========================
+TABLAS
+========================== */
 
 
 table{
@@ -665,9 +675,6 @@ color:var(--secondary);
 font-size:14px;
 
 
-font-weight:600;
-
-
 }
 
 
@@ -690,16 +697,6 @@ border-bottom:
 
 
 
-tbody tr{
-
-
-transition:.2s;
-
-
-}
-
-
-
 tbody tr:hover{
 
 
@@ -714,9 +711,10 @@ background:#FAFAFA;
 
 
 
-/* =========================
-MODAL
-========================= */
+
+/* ==========================
+MODALES
+========================== */
 
 
 .modal{
@@ -736,11 +734,9 @@ background:
 rgba(0,0,0,.35);
 
 
-
 backdrop-filter:
 
 blur(12px);
-
 
 
 justify-content:center;
@@ -750,8 +746,6 @@ align-items:center;
 
 
 }
-
-
 
 
 
@@ -789,8 +783,8 @@ margin-top:0;
 
 
 
-
 .formulario input,
+
 
 .formulario select{
 
@@ -822,7 +816,10 @@ outline:none;
 
 
 
-.formulario input:focus{
+.formulario input:focus,
+
+
+.formulario select:focus{
 
 
 border-color:var(--blue);
@@ -835,9 +832,10 @@ border-color:var(--blue);
 
 
 
-/* =========================
+
+/* ==========================
 ANIMACION
-========================= */
+========================== */
 
 
 @keyframes entrada{
@@ -845,29 +843,23 @@ ANIMACION
 
 from{
 
-
 opacity:0;
-
 
 transform:
 
 translateY(20px);
-
 
 }
 
 
 to{
 
-
 opacity:1;
-
 
 transform:
 
 translateY(0);
 
-
 }
 
 
@@ -878,13 +870,14 @@ translateY(0);
 
 
 
-/* =========================
+
+
+/* ==========================
 RESPONSIVE
-========================= */
+========================== */
 
 
 @media(max-width:900px){
-
 
 
 .sidebar{
@@ -914,6 +907,16 @@ padding:20px;
 
 
 grid-template-columns:1fr;
+
+
+}
+
+
+
+.actions{
+
+
+flex-direction:column;
 
 
 }
