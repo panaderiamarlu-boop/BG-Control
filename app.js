@@ -1,47 +1,40 @@
-const API = "https://script.google.com/macros/s/AKfycbzRo0LE3qL2Ys7VSegBxvMtls4IjiCyOkymYkrjgxokWlgKWcUpuQ85pUrLM0MuQpSoiw/exec";
+const API = "TU_URL_DE_APPS_SCRIPT";
 
 
-fetch(API + "?accion=productos")
+fetch(API+"?accion=productos")
 
 
-.then(res => res.json())
+.then(res=>res.json())
 
 
-.then(data => {
+.then(data=>{
 
 
-console.log(data);
+document.getElementById("totalProductos").innerHTML=data.length;
 
 
+let alertas=0;
+let valor=0;
 
-document.getElementById("totalProductos").innerHTML = data.length;
-
-
-
-let alertas = 0;
-
-let valor = 0;
-
-let filas = "";
+let filas="";
 
 
+data.forEach(producto=>{
 
-data.forEach(producto => {
 
+let stock=Number(producto["STOCK ACTUAL"]);
 
-let stock = Number(producto["STOCK ACTUAL"]);
+let minimo=Number(producto["STOCK MINIMO"]);
 
-let minimo = Number(producto["STOCK MINIMO"]);
-
-let costo = Number(producto["COSTO UNITARIO"]);
+let costo=Number(producto["COSTO UNITARIO"]);
 
 
 
-valor += stock * costo;
+valor += stock*costo;
 
 
 
-if(stock <= minimo){
+if(stock<=minimo){
 
 alertas++;
 
@@ -49,7 +42,7 @@ alertas++;
 
 
 
-filas += `
+filas+=`
 
 <tr>
 
@@ -61,37 +54,25 @@ filas += `
 
 <td>${minimo}</td>
 
-
 </tr>
 
 `;
-
 
 
 });
 
 
 
-document.getElementById("totalAlertas").innerHTML = alertas;
+document.getElementById("totalAlertas").innerHTML=alertas;
 
 
-document.getElementById("valorInventario").innerHTML =
+document.getElementById("valorInventario").innerHTML=
 
-"$ " + valor.toLocaleString("es-CO");
-
-
-
-document.getElementById("productos").innerHTML = filas;
+"$ "+valor.toLocaleString("es-CO");
 
 
 
-})
-
-
-.catch(error => {
-
-
-console.error("Error conectando API:", error);
+document.getElementById("productos").innerHTML=filas;
 
 
 });
