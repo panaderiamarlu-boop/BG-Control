@@ -1,41 +1,65 @@
 body{
 
-font-family:Arial, sans-serif;
-background:#f3f4f6;
 margin:0;
+font-family:Arial;
+background:#f5f6fa;
+
+display:flex;
 
 }
 
 
-.app{
 
+.sidebar{
+
+width:230px;
+height:100vh;
+background:#20232a;
+color:white;
+padding:20px;
+
+}
+
+
+
+.sidebar h2{
+
+text-align:center;
+
+}
+
+
+
+.sidebar p{
+
+padding:12px;
+border-radius:8px;
+
+}
+
+
+
+.sidebar p:hover{
+
+background:#333;
+
+}
+
+
+
+.main{
+
+flex:1;
 padding:30px;
 
 }
 
 
-header{
 
-text-align:center;
-margin-bottom:30px;
-
-}
-
-
-header h1{
-
-font-size:40px;
-margin-bottom:5px;
-
-}
-
-
-
-.dashboard{
+.cards{
 
 display:flex;
 gap:20px;
-margin-bottom:40px;
 
 }
 
@@ -47,31 +71,21 @@ background:white;
 padding:25px;
 border-radius:15px;
 flex:1;
-text-align:center;
-box-shadow:0 5px 15px rgba(0,0,0,0.15);
+box-shadow:0 5px 15px #ddd;
 
 }
 
 
 
-.card h3{
-
-margin-top:0;
-
-}
-
-
-
-.card span{
+.card strong{
 
 font-size:35px;
-font-weight:bold;
 
 }
 
 
 
-.alerta{
+.warning{
 
 border-top:5px solid red;
 
@@ -83,9 +97,8 @@ table{
 
 width:100%;
 background:white;
+margin-top:20px;
 border-collapse:collapse;
-border-radius:10px;
-overflow:hidden;
 
 }
 
@@ -93,7 +106,7 @@ overflow:hidden;
 
 th{
 
-background:#222;
+background:#20232a;
 color:white;
 
 }
@@ -103,14 +116,5 @@ color:white;
 td,th{
 
 padding:15px;
-text-align:center;
-
-}
-
-
-
-tr:nth-child(even){
-
-background:#f8f8f8;
 
 }
