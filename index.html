@@ -9,9 +9,7 @@
 
 <title>BG Control</title>
 
-
 <link rel="stylesheet" href="style.css">
-
 
 </head>
 
@@ -19,7 +17,6 @@
 <body>
 
 
-<!-- SIDEBAR -->
 
 <div class="sidebar">
 
@@ -27,6 +24,7 @@
 <h2>
 BG Control
 </h2>
+
 
 
 <div class="menu">
@@ -39,6 +37,11 @@ BG Control
 
 <p>
 ▣ Inventario
+</p>
+
+
+<p onclick="abrirMovimiento()">
+⇄ Movimientos
 </p>
 
 
@@ -72,19 +75,17 @@ BG Control
 
 
 
-<!-- CONTENIDO PRINCIPAL -->
 
 
 <div class="main">
 
 
 
-<!-- TOP BAR -->
-
 <div class="topbar">
 
 
 <div>
+
 
 <h3>
 BG Panadería
@@ -102,18 +103,15 @@ Sistema inteligente de inventario
 
 <div class="status">
 
-
 <span></span>
-
 
 Conectado
 
-
 </div>
 
 
-
 </div>
+
 
 
 
@@ -136,6 +134,8 @@ Control de inventario, compras y producción
 
 
 
+<div class="actions">
+
 
 <button onclick="abrirFormularioProducto()">
 
@@ -144,11 +144,20 @@ Control de inventario, compras y producción
 </button>
 
 
+<button onclick="abrirMovimiento()">
+
+⇄ Nuevo Movimiento
+
+</button>
+
+
+</div>
 
 
 
 
-<!-- TARJETAS -->
+
+
 
 
 <div class="cards">
@@ -156,7 +165,6 @@ Control de inventario, compras y producción
 
 
 <div class="card">
-
 
 <div class="icon blue">
 📦
@@ -174,7 +182,7 @@ Productos
 
 
 <p>
-Productos registrados
+Registrados
 </p>
 
 
@@ -190,7 +198,9 @@ Productos registrados
 
 
 <div class="icon red">
+
 ⚠️
+
 </div>
 
 
@@ -221,22 +231,28 @@ Requieren atención
 
 
 <div class="icon green">
+
 💰
+
 </div>
 
 
 <h3>
 Inventario
+
 </h3>
 
 
 <strong id="valorInventario">
+
 $0
+
 </strong>
 
 
 <p>
 Valor actual
+
 </p>
 
 
@@ -245,7 +261,6 @@ Valor actual
 
 
 </div>
-
 
 
 
@@ -269,6 +284,7 @@ Inventario Actual
 
 
 <tr>
+
 
 <th>
 Producto
@@ -318,11 +334,11 @@ Estado
 
 
 
+
 <!-- MODAL PRODUCTO -->
 
 
 <div id="modalProducto" class="modal">
-
 
 
 <div class="formulario">
@@ -334,97 +350,42 @@ Nuevo Producto
 
 
 
-<input 
-id="codigo"
-placeholder="Código"
-/>
+<input id="codigo" placeholder="Código">
 
 
-
-
-<input 
-id="nombre"
-placeholder="Nombre"
-/>
-
-
+<input id="nombre" placeholder="Nombre">
 
 
 <select id="tipo">
-
 
 <option>
 MATERIA PRIMA
 </option>
 
-
 <option>
 PRODUCTO TERMINADO
 </option>
-
 
 </select>
 
 
 
+<input id="categoria" placeholder="Categoría">
 
 
-<input
-id="categoria"
-placeholder="Categoría"
-/>
+<input id="unidad" placeholder="Unidad">
 
 
+<input id="stock" type="number" placeholder="Stock inicial">
 
 
-
-<input
-id="unidad"
-placeholder="Unidad"
-/>
+<input id="minimo" type="number" placeholder="Stock mínimo">
 
 
+<input id="costo" type="number" placeholder="Costo unitario">
 
 
-
-<input
-id="stock"
-type="number"
-placeholder="Stock inicial"
-/>
-
-
-
-
-
-<input
-id="minimo"
-type="number"
-placeholder="Stock mínimo"
-/>
-
-
-
-
-
-<input
-id="costo"
-type="number"
-placeholder="Costo unitario"
-/>
-
-
-
-
-
-<input
-id="precio"
-type="number"
-placeholder="Precio venta"
-/>
-
-
-
+<input id="precio" type="number" placeholder="Precio venta">
 
 
 <button onclick="guardarProducto()">
@@ -434,10 +395,99 @@ Guardar Producto
 </button>
 
 
-
-
-
 <button onclick="cerrarFormularioProducto()">
+
+Cancelar
+
+</button>
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+
+
+
+
+<!-- MODAL MOVIMIENTO -->
+
+
+<div id="modalMovimiento" class="modal">
+
+
+<div class="formulario">
+
+
+<h2>
+Nuevo Movimiento
+</h2>
+
+
+
+
+<select id="tipoMovimiento">
+
+
+<option>
+ENTRADA
+</option>
+
+
+<option>
+SALIDA
+</option>
+
+
+</select>
+
+
+
+
+
+<input 
+id="productoMovimiento"
+placeholder="Producto"
+/>
+
+
+
+
+
+<input 
+id="cantidadMovimiento"
+type="number"
+placeholder="Cantidad"
+/>
+
+
+
+
+
+<input 
+id="motivoMovimiento"
+placeholder="Motivo"
+/>
+
+
+
+
+
+<button onclick="guardarMovimiento()">
+
+Guardar Movimiento
+
+</button>
+
+
+
+
+<button onclick="cerrarMovimiento()">
 
 Cancelar
 
@@ -457,15 +507,17 @@ Cancelar
 
 
 
-
 <script src="modules/inventario.js"></script>
 
 <script src="modules/productos.js"></script>
+
+<script src="modules/movimientos.js"></script>
 
 <script src="app.js"></script>
 
 
 
 </body>
+
 
 </html>
