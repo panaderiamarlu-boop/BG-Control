@@ -1,12 +1,16 @@
 /*
 ====================================
  BG CONTROL
- MOVIMIENTOS v1
+ MOVIMIENTOS v2
 
- Entradas y salidas de inventario
+ Selector inteligente de productos
 ====================================
 */
 
+
+// ==================================
+// ABRIR MODAL
+// ==================================
 
 function abrirMovimiento(){
 
@@ -16,9 +20,16 @@ document.getElementById(
 ).style.display="flex";
 
 
+cargarProductosMovimiento();
+
+
 }
 
 
+
+// ==================================
+// CERRAR MODAL
+// ==================================
 
 function cerrarMovimiento(){
 
@@ -35,7 +46,184 @@ document.getElementById(
 
 
 
+// ==================================
+// CARGAR PRODUCTOS
+// ==================================
+
+function cargarProductosMovimiento(){
+
+
+
+fetch(
+API+"?accion=productos"
+)
+
+
+
+.then(
+respuesta=>respuesta.json()
+)
+
+
+
+.then(
+productos=>{
+
+
+let selector =
+document.getElementById(
+"productoMovimiento"
+);
+
+
+
+selector.innerHTML =
+`
+<option value="">
+Seleccione producto
+</option>
+`;
+
+
+
+productos.forEach(producto=>{
+
+
+let opcion =
+document.createElement(
+"option"
+);
+
+
+
+opcion.value =
+producto.NOMBRE;
+
+
+
+opcion.textContent =
+
+producto.NOMBRE +
+" (" +
+producto["STOCK ACTUAL"] +
+" " +
+producto.UNIDAD +
+")";
+
+
+
+selector.appendChild(opcion);
+
+
+
+});
+
+
+})
+
+
+.catch(
+error=>{
+
+
+console.error(
+"Error cargando productos:",
+error
+);
+
+
+}
+
+);
+
+
+
+}
+
+
+
+
+
+
+
+
+// ==================================
+// GUARDAR MOVIMIENTO
+// ==================================
+
+
 function guardarMovimiento(){
+
+
+
+let tipo =
+
+document.getElementById(
+"tipoMovimiento"
+).value;
+
+
+
+let producto =
+
+document.getElementById(
+"productoMovimiento"
+).value;
+
+
+
+let cantidad =
+
+Number(
+document.getElementById(
+"cantidadMovimiento"
+).value
+);
+
+
+
+let motivo =
+
+document.getElementById(
+"motivoMovimiento"
+).value;
+
+
+
+
+
+if(!producto){
+
+
+alert(
+"Seleccione un producto"
+);
+
+
+return;
+
+
+}
+
+
+
+
+if(!cantidad || cantidad<=0){
+
+
+alert(
+"Ingrese una cantidad válida"
+);
+
+
+return;
+
+
+}
+
+
+
+
 
 
 
@@ -43,43 +231,19 @@ let movimiento={
 
 
 
-TIPO:
-
-document.getElementById(
-"tipoMovimiento"
-).value,
+TIPO:tipo,
 
 
-
-PRODUCTO:
-
-document.getElementById(
-"productoMovimiento"
-).value,
+PRODUCTO:producto,
 
 
-
-CANTIDAD:
-
-Number(
-document.getElementById(
-"cantidadMovimiento"
-).value
-),
+CANTIDAD:cantidad,
 
 
-
-MOTIVO:
-
-document.getElementById(
-"motivoMovimiento"
-).value,
+MOTIVO:motivo,
 
 
-
-USUARIO:
-
-"ADMIN"
+USUARIO:"ADMIN"
 
 
 
@@ -89,8 +253,11 @@ USUARIO:
 
 
 
+
 fetch(
+
 API+"?accion=crearMovimiento",
+
 {
 
 
@@ -98,27 +265,38 @@ method:"POST",
 
 
 body:
+
 JSON.stringify(movimiento)
 
 
 }
 
+
 )
 
 
 
+
+
 .then(
-res=>res.json()
+
+respuesta=>
+
+respuesta.json()
+
 )
 
 
 
+
+
 .then(
-data=>{
+
+resultado=>{
 
 
 alert(
-data.mensaje
+resultado.mensaje
 );
 
 
@@ -137,7 +315,10 @@ location.reload();
 
 
 
+
+
 .catch(
+
 error=>{
 
 
@@ -145,7 +326,7 @@ console.error(error);
 
 
 alert(
-"Error creando movimiento"
+"Error guardando movimiento"
 );
 
 
