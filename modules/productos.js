@@ -14,49 +14,48 @@ document.getElementById("modalProducto").style.display="none";
 
 
 
-
 function guardarProducto(){
 
 
-let producto = {
+let producto={
 
 
 ID:"P"+Date.now(),
 
-
-CODIGO:document.getElementById("codigo").value,
-
-
-NOMBRE:document.getElementById("nombre").value,
+CODIGO:
+document.getElementById("codigo").value,
 
 
-TIPO:document.getElementById("tipo").value,
+NOMBRE:
+document.getElementById("nombre").value,
 
 
-CATEGORIA:document.getElementById("categoria").value,
+TIPO:
+document.getElementById("tipo").value,
 
 
-UNIDAD:document.getElementById("unidad").value,
+CATEGORIA:
+document.getElementById("categoria").value,
 
 
-STOCK:Number(
-document.getElementById("stock").value
-),
+UNIDAD:
+document.getElementById("unidad").value,
 
 
-STOCK_MINIMO:Number(
-document.getElementById("minimo").value
-),
+STOCK:
+Number(document.getElementById("stock").value),
 
 
-COSTO:Number(
-document.getElementById("costo").value
-),
+STOCK_MINIMO:
+Number(document.getElementById("minimo").value),
 
 
-PRECIO:Number(
-document.getElementById("precio").value
-)
+COSTO:
+Number(document.getElementById("costo").value),
+
+
+PRECIO:
+Number(document.getElementById("precio").value)
 
 
 };
@@ -68,12 +67,10 @@ fetch(API+"?accion=crearProducto",{
 
 method:"POST",
 
-
 body:JSON.stringify(producto)
 
 
 })
-
 
 .then(res=>res.json())
 
@@ -84,20 +81,15 @@ body:JSON.stringify(producto)
 alert(data.mensaje);
 
 
-cerrarFormularioProducto();
-
-
 location.reload();
 
 
 })
 
-
 .catch(error=>{
 
 
 console.error(error);
-
 
 alert("Error guardando producto");
 
