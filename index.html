@@ -19,7 +19,6 @@
 <body>
 
 
-
 <!-- SIDEBAR -->
 
 <div class="sidebar">
@@ -30,17 +29,87 @@ BG Control
 </h2>
 
 
-<p>⌂ Inicio</p>
+<div class="menu">
 
-<p>▣ Inventario</p>
 
-<p>＋ Compras</p>
+<p class="active">
+⌂ Inicio
+</p>
 
-<p>◉ Producción</p>
 
-<p>▤ Reportes</p>
+<p>
+▣ Inventario
+</p>
 
-<p>⚙ Configuración</p>
+
+<p>
+＋ Compras
+</p>
+
+
+<p>
+◉ Producción
+</p>
+
+
+<p>
+▤ Reportes
+</p>
+
+
+<p>
+⚙ Configuración
+</p>
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+
+<!-- CONTENIDO PRINCIPAL -->
+
+
+<div class="main">
+
+
+
+<!-- TOP BAR -->
+
+<div class="topbar">
+
+
+<div>
+
+<h3>
+BG Panadería
+</h3>
+
+
+<p>
+Sistema inteligente de inventario
+</p>
+
+
+</div>
+
+
+
+<div class="status">
+
+
+<span></span>
+
+
+Conectado
+
+
+</div>
 
 
 
@@ -49,20 +118,22 @@ BG Control
 
 
 
-<!-- CONTENIDO -->
-
-<div class="main">
 
 
 
 <h1>
-Dashboard
+Hola, BG Panadería 👋
 </h1>
 
 
-<p>
-Gestión inteligente de inventario y producción
+<p class="subtitle">
+
+Control de inventario, compras y producción
+
 </p>
+
+
+
 
 
 
@@ -71,6 +142,7 @@ Gestión inteligente de inventario y producción
 ＋ Nuevo Producto
 
 </button>
+
 
 
 
@@ -85,24 +157,45 @@ Gestión inteligente de inventario y producción
 
 <div class="card">
 
+
+<div class="icon blue">
+📦
+</div>
+
+
 <h3>
-📦 Productos
+Productos
 </h3>
+
 
 <strong id="totalProductos">
 0
 </strong>
+
+
+<p>
+Productos registrados
+</p>
+
 
 </div>
 
 
 
 
-<div class="card warning">
+
+
+
+<div class="card">
+
+
+<div class="icon red">
+⚠️
+</div>
 
 
 <h3>
-⚠️ Stock Bajo
+Stock Bajo
 </h3>
 
 
@@ -111,7 +204,15 @@ Gestión inteligente de inventario y producción
 </strong>
 
 
+<p>
+Requieren atención
+</p>
+
+
 </div>
+
+
+
 
 
 
@@ -119,23 +220,34 @@ Gestión inteligente de inventario y producción
 <div class="card">
 
 
+<div class="icon green">
+💰
+</div>
+
+
 <h3>
-💰 Inventario
+Inventario
 </h3>
 
 
 <strong id="valorInventario">
-
 $0
-
 </strong>
 
 
+<p>
+Valor actual
+</p>
+
+
 </div>
 
 
 
 </div>
+
+
+
 
 
 
@@ -154,6 +266,7 @@ Inventario Actual
 
 
 <thead>
+
 
 <tr>
 
@@ -202,17 +315,10 @@ Estado
 
 
 
-</div>
 
 
 
-
-
-
-
-
-
-<!-- MODAL NUEVO PRODUCTO -->
+<!-- MODAL PRODUCTO -->
 
 
 <div id="modalProducto" class="modal">
@@ -262,6 +368,7 @@ PRODUCTO TERMINADO
 
 
 
+
 <input
 id="categoria"
 placeholder="Categoría"
@@ -289,6 +396,7 @@ placeholder="Stock inicial"
 
 
 
+
 <input
 id="minimo"
 type="number"
@@ -298,11 +406,13 @@ placeholder="Stock mínimo"
 
 
 
+
 <input
 id="costo"
 type="number"
 placeholder="Costo unitario"
 />
+
 
 
 
@@ -335,13 +445,11 @@ Cancelar
 
 
 
+</div>
 
 
 </div>
 
-
-
-</div>
 
 
 
