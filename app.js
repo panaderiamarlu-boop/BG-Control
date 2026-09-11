@@ -1,4 +1,4 @@
-const API = "TU_URL_DE_APPS_SCRIPT";
+const API = "https://bg-control-six.vercel.app";
 
 
 fetch(API+"?accion=productos")
