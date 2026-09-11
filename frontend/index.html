@@ -16,14 +16,85 @@
 <body>
 
 
-<h1>BG CONTROL</h1>
+<div class="app">
 
-<p>
-Sistema de inventario y producción
-</p>
+
+<header>
+
+<h1>BG CONTROL</h1>
+<p>Inventario inteligente</p>
+
+</header>
+
+
+
+<section class="dashboard">
+
+
+<div class="card">
+
+<h3>📦 Productos</h3>
+
+<span id="totalProductos">0</span>
+
+</div>
+
+
+<div class="card alerta">
+
+<h3>⚠️ Stock Bajo</h3>
+
+<span id="totalAlertas">0</span>
+
+</div>
+
+
+<div class="card">
+
+<h3>💰 Inventario</h3>
+
+<span id="valorInventario">$0</span>
+
+</div>
+
+
+</section>
+
+
+
+<h2>Inventario Actual</h2>
+
+
+<table>
+
+<thead>
+
+<tr>
+
+<th>Producto</th>
+<th>Categoría</th>
+<th>Stock</th>
+<th>Mínimo</th>
+
+</tr>
+
+</thead>
+
+
+<tbody id="productos">
+
+</tbody>
+
+
+</table>
+
+
+
+</div>
 
 
 <script src="app.js"></script>
+
 
 </body>
 
