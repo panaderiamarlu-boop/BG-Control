@@ -4,11 +4,14 @@
 <head>
 
 <meta charset="UTF-8">
+
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>BG Control</title>
 
+
 <link rel="stylesheet" href="style.css">
+
 
 </head>
 
@@ -16,68 +19,135 @@
 <body>
 
 
+
+<!-- SIDEBAR -->
+
 <div class="sidebar">
 
-<h2>BG CONTROL</h2>
 
-<p>🏠 Dashboard</p>
-<p>📦 Inventario</p>
-<p>🛒 Compras</p>
-<p>🥖 Producción</p>
-<p>📊 Reportes</p>
+<h2>
+BG Control
+</h2>
+
+
+<p>⌂ Inicio</p>
+
+<p>▣ Inventario</p>
+
+<p>＋ Compras</p>
+
+<p>◉ Producción</p>
+
+<p>▤ Reportes</p>
+
+<p>⚙ Configuración</p>
+
+
 
 </div>
 
 
 
+
+<!-- CONTENIDO -->
+
 <div class="main">
 
 
-<h1>Dashboard</h1>
+
+<h1>
+Dashboard
+</h1>
+
+
+<p>
+Gestión inteligente de inventario y producción
+</p>
+
+
 
 <button onclick="abrirFormularioProducto()">
-➕ Nuevo Producto
+
+＋ Nuevo Producto
+
 </button>
 
+
+
+
+
+<!-- TARJETAS -->
 
 
 <div class="cards">
 
 
+
 <div class="card">
 
-<h3>📦 Productos</h3>
+<h3>
+📦 Productos
+</h3>
 
-<strong id="totalProductos">0</strong>
+<strong id="totalProductos">
+0
+</strong>
 
 </div>
+
 
 
 
 <div class="card warning">
 
-<h3>⚠️ Stock Bajo</h3>
 
-<strong id="totalAlertas">0</strong>
+<h3>
+⚠️ Stock Bajo
+</h3>
+
+
+<strong id="totalAlertas">
+0
+</strong>
+
 
 </div>
+
 
 
 
 <div class="card">
 
-<h3>💰 Inventario</h3>
 
-<strong id="valorInventario">$0</strong>
+<h3>
+💰 Inventario
+</h3>
+
+
+<strong id="valorInventario">
+
+$0
+
+</strong>
+
 
 </div>
 
 
+
 </div>
 
 
 
-<h2>Inventario Actual</h2>
+
+
+
+<h2>
+Inventario Actual
+</h2>
+
+
+
 
 
 <table>
@@ -87,27 +157,48 @@
 
 <tr>
 
-<th>Producto</th>
+<th>
+Producto
+</th>
 
-<th>Categoría</th>
 
-<th>Stock</th>
+<th>
+Categoría
+</th>
 
-<th>Mínimo</th>
 
-<th>Estado</th>
+<th>
+Stock
+</th>
+
+
+<th>
+Mínimo
+</th>
+
+
+<th>
+Estado
+</th>
+
 
 </tr>
+
 
 </thead>
 
 
+
 <tbody id="productos">
+
 
 </tbody>
 
 
+
 </table>
+
+
 
 
 
@@ -117,55 +208,123 @@
 
 
 
-<!-- FORMULARIO -->
+
+
+
+
+<!-- MODAL NUEVO PRODUCTO -->
+
 
 <div id="modalProducto" class="modal">
+
 
 
 <div class="formulario">
 
 
-<h2>Nuevo Producto</h2>
+<h2>
+Nuevo Producto
+</h2>
 
 
-<input id="codigo" placeholder="Código">
+
+<input 
+id="codigo"
+placeholder="Código"
+/>
 
 
-<input id="nombre" placeholder="Nombre">
+
+
+<input 
+id="nombre"
+placeholder="Nombre"
+/>
+
+
 
 
 <select id="tipo">
 
-<option>MATERIA PRIMA</option>
 
-<option>PRODUCTO TERMINADO</option>
+<option>
+MATERIA PRIMA
+</option>
+
+
+<option>
+PRODUCTO TERMINADO
+</option>
+
 
 </select>
 
 
-<input id="categoria" placeholder="Categoría">
 
 
-<input id="unidad" placeholder="Unidad">
+<input
+id="categoria"
+placeholder="Categoría"
+/>
 
 
-<input id="stock" type="number" placeholder="Stock inicial">
 
 
-<input id="minimo" type="number" placeholder="Stock mínimo">
+
+<input
+id="unidad"
+placeholder="Unidad"
+/>
 
 
-<input id="costo" type="number" placeholder="Costo unitario">
 
 
-<input id="precio" type="number" placeholder="Precio venta">
+
+<input
+id="stock"
+type="number"
+placeholder="Stock inicial"
+/>
+
+
+
+
+<input
+id="minimo"
+type="number"
+placeholder="Stock mínimo"
+/>
+
+
+
+
+<input
+id="costo"
+type="number"
+placeholder="Costo unitario"
+/>
+
+
+
+
+<input
+id="precio"
+type="number"
+placeholder="Precio venta"
+/>
+
+
+
 
 
 <button onclick="guardarProducto()">
 
-Guardar
+Guardar Producto
 
 </button>
+
+
+
 
 
 <button onclick="cerrarFormularioProducto()">
@@ -176,10 +335,16 @@ Cancelar
 
 
 
-</div>
 
 
 </div>
+
+
+
+</div>
+
+
+
 
 
 
@@ -190,6 +355,7 @@ Cancelar
 <script src="modules/productos.js"></script>
 
 <script src="app.js"></script>
+
 
 
 </body>
