@@ -1,42 +1,48 @@
 /*
-====================================
+========================================
  BG CONTROL
  MOVIMIENTOS v2
 
+ Kardex - Entradas y Salidas
  Selector inteligente de productos
-====================================
+
+========================================
 */
 
 
-// ==================================
-// ABRIR MODAL
-// ==================================
+
+// ======================================
+// ABRIR MODAL MOVIMIENTO
+// ======================================
 
 function abrirMovimiento(){
 
 
-document.getElementById(
-"modalMovimiento"
-).style.display="flex";
+    document.getElementById(
+        "modalMovimiento"
+    ).style.display = "flex";
 
 
-cargarProductosMovimiento();
+    cargarProductosMovimiento();
 
 
 }
 
 
 
-// ==================================
+
+
+
+// ======================================
 // CERRAR MODAL
-// ==================================
+// ======================================
 
 function cerrarMovimiento(){
 
 
-document.getElementById(
-"modalMovimiento"
-).style.display="none";
+    document.getElementById(
+        "modalMovimiento"
+    ).style.display = "none";
 
 
 }
@@ -46,99 +52,112 @@ document.getElementById(
 
 
 
-// ==================================
-// CARGAR PRODUCTOS
-// ==================================
+
+
+// ======================================
+// CARGAR PRODUCTOS DESDE SHEETS
+// ======================================
 
 function cargarProductosMovimiento(){
 
 
 
-fetch(
-API+"?accion=productos"
-)
+    fetch(
+        API + "?accion=productos"
+    )
+
+
+    .then(
+        respuesta => respuesta.json()
+    )
+
+
+    .then(
+        productos => {
 
 
 
-.then(
-respuesta=>respuesta.json()
-)
+            let selector =
+            document.getElementById(
+                "productoMovimiento"
+            );
 
 
 
-.then(
-productos=>{
-
-
-let selector =
-document.getElementById(
-"productoMovimiento"
-);
-
-
-
-selector.innerHTML =
-`
-<option value="">
-Seleccione producto
-</option>
-`;
+            selector.innerHTML =
+            `
+            <option value="">
+            Seleccione producto
+            </option>
+            `;
 
 
 
-productos.forEach(producto=>{
 
-
-let opcion =
-document.createElement(
-"option"
-);
+            productos.forEach(
+                producto => {
 
 
 
-opcion.value =
-producto.NOMBRE;
+                    let opcion =
+                    document.createElement(
+                        "option"
+                    );
 
 
 
-opcion.textContent =
-
-producto.NOMBRE +
-" (" +
-producto["STOCK ACTUAL"] +
-" " +
-producto.UNIDAD +
-")";
+                    opcion.value =
+                    producto.NOMBRE;
 
 
 
-selector.appendChild(opcion);
+                    opcion.textContent =
+
+                    producto.NOMBRE
+                    +
+                    " | Stock: "
+                    +
+                    producto["STOCK ACTUAL"]
+                    +
+                    " "
+                    +
+                    producto.UNIDAD;
 
 
 
-});
+                    selector.appendChild(
+                        opcion
+                    );
 
 
-})
+
+                }
+            );
 
 
-.catch(
-error=>{
+
+        }
+
+    )
 
 
-console.error(
-"Error cargando productos:",
-error
-);
+    .catch(
+        error => {
+
+
+            console.error(
+                "Error cargando productos:",
+                error
+            );
+
+
+        }
+
+    );
 
 
 }
 
-);
-
-
-
-}
 
 
 
@@ -147,192 +166,226 @@ error
 
 
 
-// ==================================
+// ======================================
 // GUARDAR MOVIMIENTO
-// ==================================
-
+// ======================================
 
 function guardarMovimiento(){
 
 
 
-let tipo =
+    let tipo =
 
-document.getElementById(
-"tipoMovimiento"
-).value;
+    document.getElementById(
+        "tipoMovimiento"
+    ).value;
 
 
 
-let producto =
 
-document.getElementById(
-"productoMovimiento"
-).value;
 
+    let producto =
 
+    document.getElementById(
+        "productoMovimiento"
+    ).value;
 
-let cantidad =
 
-Number(
-document.getElementById(
-"cantidadMovimiento"
-).value
-);
 
 
 
-let motivo =
+    let cantidad =
 
-document.getElementById(
-"motivoMovimiento"
-).value;
+    Number(
 
+        document.getElementById(
+            "cantidadMovimiento"
+        ).value
 
+    );
 
 
 
-if(!producto){
 
 
-alert(
-"Seleccione un producto"
-);
+    let motivo =
 
+    document.getElementById(
+        "motivoMovimiento"
+    ).value;
 
-return;
 
 
-}
 
 
 
 
-if(!cantidad || cantidad<=0){
+    // VALIDACIONES
 
 
-alert(
-"Ingrese una cantidad válida"
-);
+    if(producto === ""){
 
 
-return;
+        alert(
+            "Seleccione un producto"
+        );
 
 
-}
+        return;
 
 
+    }
 
 
 
 
 
-let movimiento={
 
+    if(!cantidad || cantidad <= 0){
 
 
-TIPO:tipo,
+        alert(
+            "Ingrese una cantidad válida"
+        );
 
 
-PRODUCTO:producto,
+        return;
 
 
-CANTIDAD:cantidad,
+    }
 
 
-MOTIVO:motivo,
 
 
-USUARIO:"ADMIN"
 
 
+    let movimiento = {
 
-};
 
 
+        TIPO:
+        tipo,
 
 
 
+        PRODUCTO:
+        producto,
 
-fetch(
 
-API+"?accion=crearMovimiento",
 
-{
+        CANTIDAD:
+        cantidad,
 
 
-method:"POST",
 
+        MOTIVO:
+        motivo || "SIN MOTIVO",
 
-body:
 
-JSON.stringify(movimiento)
 
+        USUARIO:
+        "ADMIN"
 
-}
 
 
-)
+    };
 
 
 
 
 
-.then(
 
-respuesta=>
 
-respuesta.json()
 
-)
+    fetch(
 
+        API + "?accion=crearMovimiento",
 
+        {
 
 
+            method:"POST",
 
-.then(
 
-resultado=>{
+            body:
+            JSON.stringify(
+                movimiento
+            )
 
 
-alert(
-resultado.mensaje
-);
+        }
 
 
+    )
 
-cerrarMovimiento();
 
 
 
-location.reload();
 
+    .then(
 
+        respuesta =>
+        respuesta.json()
 
-}
+    )
 
-)
 
 
 
 
+    .then(
 
-.catch(
+        resultado => {
 
-error=>{
 
 
-console.error(error);
+            alert(
+                resultado.mensaje
+            );
 
 
-alert(
-"Error guardando movimiento"
-);
 
+            cerrarMovimiento();
 
-}
 
-);
+
+            location.reload();
+
+
+
+        }
+
+
+    )
+
+
+
+
+
+    .catch(
+
+        error => {
+
+
+
+            console.error(
+                "Error movimiento:",
+                error
+            );
+
+
+
+            alert(
+                "No se pudo guardar el movimiento"
+            );
+
+
+        }
+
+
+    );
+
+
 
 
 
