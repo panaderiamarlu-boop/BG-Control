@@ -1,25 +1,28 @@
 /*
 =====================================
  BG CONTROL
- APP.JS CORE v3
+ APP.JS CORE v4
 
- Conexión:
+ Arquitectura:
  Vercel
     ↓
- Apps Script JSONP
+ /api/google
+    ↓
+ Apps Script
     ↓
  Google Sheets
 =====================================
 */
 
 
+// NUEVO PUENTE VERCEL
 const API = "/api/google";
 
 
 
 
 // ===================================
-// INICIO
+// INICIO DE APLICACIÓN
 // ===================================
 
 document.addEventListener(
@@ -34,8 +37,9 @@ document.addEventListener(
 
 
 
+
 // ===================================
-// CARGAR PRODUCTOS JSONP
+// CARGAR DASHBOARD
 // ===================================
 
 
@@ -45,68 +49,81 @@ function cargarDashboard(){
 mostrarCarga();
 
 
-const script = document.createElement("script");
+
+fetch(
+API + "?accion=productos"
+)
 
 
-const callbackName =
-"bgProductosCallback";
+.then(respuesta=>{
 
 
-window[callbackName] = function(productos){
+if(!respuesta.ok){
+
+throw new Error(
+"Error conectando API"
+);
+
+}
 
 
-    console.log(
-        "Productos recibidos:",
-        productos
-    );
+return respuesta.json();
 
 
-    actualizarDashboard(productos);
+})
 
 
-    cargarInventario(productos);
+.then(productos=>{
 
 
-    mostrarConexion(true);
-
-
-
-    delete window[callbackName];
-
-    script.remove();
-
-
-};
-
-
-
-script.src =
-API +
-"?accion=productos&callback=" +
-callbackName;
+console.log(
+"Productos recibidos:",
+productos
+);
 
 
 
-script.onerror = function(){
+if(!Array.isArray(productos)){
 
 
-    console.error(
-        "Error conectando API"
-    );
+throw new Error(
+"La API no devolvió productos"
+);
 
 
-    mostrarConexion(false);
-
-
-    mostrarError();
-
-
-};
+}
 
 
 
-document.body.appendChild(script);
+actualizarDashboard(productos);
 
+
+cargarInventario(productos);
+
+
+mostrarConexion(true);
+
+
+
+})
+
+
+.catch(error=>{
+
+
+console.error(
+"Error:",
+error
+);
+
+
+mostrarConexion(false);
+
+
+mostrarError();
+
+
+});
 
 
 }
@@ -117,8 +134,9 @@ document.body.appendChild(script);
 
 
 
+
 // ===================================
-// ACTUALIZAR DASHBOARD
+// ACTUALIZAR TARJETAS DASHBOARD
 // ===================================
 
 
@@ -135,6 +153,8 @@ let alertas = 0;
 
 
 let valor = 0;
+
+
 
 
 
@@ -156,7 +176,8 @@ Number(producto["COSTO UNITARIO"]) || 0;
 
 
 
-valor += stock * costo;
+valor +=
+stock * costo;
 
 
 
@@ -180,12 +201,14 @@ document.getElementById(
 );
 
 
+
 if(totalProductos){
 
 totalProductos.innerHTML =
 total;
 
 }
+
 
 
 
@@ -206,6 +229,7 @@ alertas;
 
 
 
+
 const valorInventario =
 document.getElementById(
 "valorInventario"
@@ -215,15 +239,17 @@ document.getElementById(
 
 if(valorInventario){
 
+
 valorInventario.innerHTML =
 
 "$ " +
+
 valor.toLocaleString(
 "es-CO"
 );
 
-}
 
+}
 
 
 }
@@ -237,7 +263,7 @@ valor.toLocaleString(
 
 
 // ===================================
-// TABLA INVENTARIO
+// CARGAR TABLA INVENTARIO
 // ===================================
 
 
@@ -245,7 +271,7 @@ function cargarInventario(productos){
 
 
 
-let tabla =
+const tabla =
 document.getElementById(
 "productos"
 );
@@ -268,21 +294,23 @@ tabla.innerHTML="";
 productos.forEach(producto=>{
 
 
-
 let stock =
-producto["STOCK ACTUAL"];
+Number(producto["STOCK ACTUAL"]) || 0;
 
 
 
 let minimo =
-producto["STOCK MINIMO"];
+Number(producto["STOCK MINIMO"]) || 0;
 
 
 
 let estado =
 stock <= minimo
-? "⚠️ Bajo"
-: "✅ OK";
+?
+"⚠️ Bajo"
+:
+"✅ OK";
+
 
 
 
@@ -293,22 +321,22 @@ tabla.innerHTML +=
 <tr>
 
 <td>
-${producto.NOMBRE || ""}
+${producto["NOMBRE"] || ""}
 </td>
 
 
 <td>
-${producto.CATEGORIA || ""}
+${producto["CATEGORIA"] || ""}
+</td>
+
+
+<td>
+${producto["UNIDAD"] || ""}
 </td>
 
 
 <td>
 ${stock}
-</td>
-
-
-<td>
-${minimo}
 </td>
 
 
@@ -324,7 +352,6 @@ ${estado}
 
 
 });
-
 
 
 }
@@ -348,7 +375,7 @@ estado
 
 
 
-let indicador =
+const indicador =
 document.querySelector(
 ".status"
 );
@@ -366,7 +393,6 @@ return;
 if(estado){
 
 
-
 indicador.innerHTML =
 
 `
@@ -379,9 +405,7 @@ Conectado
 
 
 
-}
-
-else{
+}else{
 
 
 indicador.innerHTML =
@@ -393,6 +417,7 @@ indicador.innerHTML =
 Sin conexión
 
 `;
+
 
 
 }
@@ -417,7 +442,7 @@ function mostrarCarga(){
 
 
 
-let tabla =
+const tabla =
 document.getElementById(
 "productos"
 );
@@ -425,7 +450,6 @@ document.getElementById(
 
 
 if(tabla){
-
 
 
 tabla.innerHTML =
@@ -443,6 +467,7 @@ Cargando inventario...
 </tr>
 
 `;
+
 
 }
 
@@ -466,7 +491,7 @@ function mostrarError(){
 
 
 
-let tabla =
+const tabla =
 document.getElementById(
 "productos"
 );
@@ -474,7 +499,6 @@ document.getElementById(
 
 
 if(tabla){
-
 
 
 tabla.innerHTML =
