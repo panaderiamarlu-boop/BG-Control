@@ -13,7 +13,7 @@
 */
 
 
-const API = "https://script.google.com/macros/s/AKfycbw0Gb-78mX0V-yUKCks6cSowz8F-tBTte9_Ppvr5tuCBGykBe4qNfFB3dQuGcmb2mbQNw/exec";
+const API = "/api/google";
 
 
 
