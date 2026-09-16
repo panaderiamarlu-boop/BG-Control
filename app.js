@@ -1,12 +1,12 @@
 /*
 =====================================
  BG CONTROL
- APP.JS CORE v2
+ APP.JS CORE v3
 
- Conexión principal:
+ Conexión:
  Vercel
     ↓
- Apps Script
+ Apps Script JSONP
     ↓
  Google Sheets
 =====================================
@@ -18,19 +18,15 @@ const API = "https://script.google.com/macros/s/AKfycbw0Gb-78mX0V-yUKCks6cSowz8F
 
 
 
-
 // ===================================
-// INICIO DE APLICACIÓN
+// INICIO
 // ===================================
-
 
 document.addEventListener(
 "DOMContentLoaded",
 ()=>{
 
-
-cargarDashboard();
-
+    cargarDashboard();
 
 });
 
@@ -38,95 +34,82 @@ cargarDashboard();
 
 
 
-
-
 // ===================================
-// CARGAR DASHBOARD
+// CARGAR PRODUCTOS JSONP
 // ===================================
 
 
 function cargarDashboard(){
 
 
-
 mostrarCarga();
 
 
-
-fetch(
-API + "?accion=productos"
-)
+const script = document.createElement("script");
 
 
-
-.then(
-respuesta=>{
-
-
-if(!respuesta.ok){
-
-throw new Error(
-"Error conectando API"
-);
-
-}
+const callbackName =
+"bgProductosCallback";
 
 
-return respuesta.json();
+window[callbackName] = function(productos){
 
 
-}
+    console.log(
+        "Productos recibidos:",
+        productos
+    );
 
-)
+
+    actualizarDashboard(productos);
+
+
+    cargarInventario(productos);
+
+
+    mostrarConexion(true);
 
 
 
-.then(
-productos=>{
+    delete window[callbackName];
+
+    script.remove();
 
 
-actualizarDashboard(productos);
-
-
-cargarInventario(productos);
-
-
-
-mostrarConexion(true);
-
-
-}
-
-)
+};
 
 
 
-.catch(
-error=>{
-
-
-console.error(
-"Error:",
-error
-);
+script.src =
+API +
+"?accion=productos&callback=" +
+callbackName;
 
 
 
-mostrarConexion(false);
+script.onerror = function(){
+
+
+    console.error(
+        "Error conectando API"
+    );
+
+
+    mostrarConexion(false);
+
+
+    mostrarError();
+
+
+};
 
 
 
-mostrarError();
-
-
-}
-
-);
+document.body.appendChild(script);
 
 
 
 }
-
 
 
 
@@ -135,7 +118,7 @@ mostrarError();
 
 
 // ===================================
-// ACTUALIZAR TARJETAS
+// ACTUALIZAR DASHBOARD
 // ===================================
 
 
@@ -143,7 +126,9 @@ function actualizarDashboard(productos){
 
 
 
-let total = productos.length;
+let total =
+productos.length;
+
 
 
 let alertas = 0;
@@ -153,34 +138,25 @@ let valor = 0;
 
 
 
-
-
-productos.forEach(
-producto=>{
-
+productos.forEach(producto=>{
 
 
 let stock =
-Number(producto["STOCK ACTUAL"]);
+Number(producto["STOCK ACTUAL"]) || 0;
 
 
 
 let minimo =
-Number(producto["STOCK MINIMO"]);
+Number(producto["STOCK MINIMO"]) || 0;
 
 
 
 let costo =
-Number(producto["COSTO UNITARIO"]);
+Number(producto["COSTO UNITARIO"]) || 0;
 
 
 
-
-
-valor +=
-stock * costo;
-
-
+valor += stock * costo;
 
 
 
@@ -191,39 +167,62 @@ alertas++;
 }
 
 
+
+});
+
+
+
+
+
+const totalProductos =
+document.getElementById(
+"totalProductos"
+);
+
+
+if(totalProductos){
+
+totalProductos.innerHTML =
+total;
+
 }
 
+
+
+const totalAlertas =
+document.getElementById(
+"totalAlertas"
 );
 
 
 
+if(totalAlertas){
 
+totalAlertas.innerHTML =
+alertas;
 
-document.getElementById(
-"totalProductos"
-).innerHTML = total;
-
-
-
-
-document.getElementById(
-"totalAlertas"
-).innerHTML = alertas;
+}
 
 
 
 
-
+const valorInventario =
 document.getElementById(
 "valorInventario"
-).innerHTML =
+);
+
+
+
+if(valorInventario){
+
+valorInventario.innerHTML =
 
 "$ " +
 valor.toLocaleString(
 "es-CO"
 );
 
-
+}
 
 
 
@@ -238,7 +237,108 @@ valor.toLocaleString(
 
 
 // ===================================
-// ESTADO API
+// TABLA INVENTARIO
+// ===================================
+
+
+function cargarInventario(productos){
+
+
+
+let tabla =
+document.getElementById(
+"productos"
+);
+
+
+
+if(!tabla){
+
+return;
+
+}
+
+
+
+tabla.innerHTML="";
+
+
+
+
+productos.forEach(producto=>{
+
+
+
+let stock =
+producto["STOCK ACTUAL"];
+
+
+
+let minimo =
+producto["STOCK MINIMO"];
+
+
+
+let estado =
+stock <= minimo
+? "⚠️ Bajo"
+: "✅ OK";
+
+
+
+tabla.innerHTML +=
+
+`
+
+<tr>
+
+<td>
+${producto.NOMBRE || ""}
+</td>
+
+
+<td>
+${producto.CATEGORIA || ""}
+</td>
+
+
+<td>
+${stock}
+</td>
+
+
+<td>
+${minimo}
+</td>
+
+
+<td>
+${estado}
+</td>
+
+
+</tr>
+
+`;
+
+
+
+});
+
+
+
+}
+
+
+
+
+
+
+
+
+
+// ===================================
+// ESTADO CONEXIÓN
 // ===================================
 
 
@@ -268,6 +368,7 @@ if(estado){
 
 
 indicador.innerHTML =
+
 `
 
 <span></span>
@@ -283,8 +384,8 @@ Conectado
 else{
 
 
-
 indicador.innerHTML =
+
 `
 
 <span style="background:#FF3B30"></span>
@@ -294,9 +395,7 @@ Sin conexión
 `;
 
 
-
 }
-
 
 
 }
@@ -344,8 +443,6 @@ Cargando inventario...
 </tr>
 
 `;
-
-
 
 }
 
@@ -395,8 +492,6 @@ tabla.innerHTML =
 </tr>
 
 `;
-
-
 
 }
 
