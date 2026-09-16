@@ -1,14 +1,6 @@
 /*
-=====================================
  BG CONTROL
- VERCEL API BRIDGE
-
- Vercel
-    ↓
- Google Apps Script
-    ↓
- Google Sheets
-=====================================
+ DEBUG GOOGLE BRIDGE
 */
 
 
@@ -23,73 +15,36 @@ export default async function handler(req, res) {
     try {
 
 
-        // Acción recibida desde BG Control
-
-        const accion =
-        req.query.accion || "productos";
-
-
-
-        // Consulta a Google Apps Script
-
         const respuesta =
         await fetch(
-            GOOGLE_API +
-            "?accion=" +
-            encodeURIComponent(accion)
+            GOOGLE_API + "?accion=productos"
         );
 
 
 
-        if(!respuesta.ok){
-
-
-            throw new Error(
-                "Google API respondió con error: " +
-                respuesta.status
-            );
-
-
-        }
+        const texto =
+        await respuesta.text();
 
 
 
-        const datos =
-        await respuesta.json();
+        res.status(200).json({
+
+            status: respuesta.status,
+
+            contenido: texto.substring(0,500)
+
+        });
 
 
 
-        // Respuesta hacia BG Control
-
-        res.status(200).json(datos);
-
-
-
-    } catch(error) {
-
-
-
-        console.error(
-            "ERROR GOOGLE BRIDGE:",
-            error
-        );
-
+    } catch(error){
 
 
         res.status(500).json({
 
-
-            estado:"ERROR",
-
-            mensaje:
-            "No fue posible conectar con Google Sheets",
-
-            detalle:
-            error.message
-
+            error:error.message
 
         });
-
 
 
     }
