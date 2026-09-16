@@ -1,6 +1,8 @@
 /*
+=====================================
  BG CONTROL
- DEBUG GOOGLE BRIDGE
+ VERCEL API BRIDGE
+=====================================
 */
 
 
@@ -15,25 +17,27 @@ export default async function handler(req, res) {
     try {
 
 
+        const accion =
+        req.query.accion || "productos";
+
+
+
         const respuesta =
         await fetch(
-            GOOGLE_API + "?accion=productos"
+            GOOGLE_API +
+            "?accion=" +
+            encodeURIComponent(accion)
         );
 
 
 
-        const texto =
-        await respuesta.text();
+        const datos =
+        await respuesta.json();
 
 
 
-        res.status(200).json({
-
-            status: respuesta.status,
-
-            contenido: texto.substring(0,500)
-
-        });
+        // DEVUELVE DIRECTAMENTE EL ARRAY
+        res.status(200).json(datos);
 
 
 
@@ -48,6 +52,9 @@ export default async function handler(req, res) {
 
 
     }
+
+
+}
 
 
 }
